@@ -1,0 +1,19 @@
+{
+  "name": "sn-daily-mining",
+  "version": "0.0.1",
+  "description": "",
+  "main": "daily-mining.js",
+  "scripts": {
+    "build": "tsc && cp .session-cookie dist/.session-cookie",
+    "start": "node dist/index"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.11.19",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  }
+}
