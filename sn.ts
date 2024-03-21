@@ -7,7 +7,7 @@ import type {
   UpsertCommentResponse,
 } from "sn-api";
 
-const SESSION_TOKEN_COOKIE_NAME = "__Secure-next-auth.session-token";
+const API_KEY_HEADER_NAME = "X-API-Key";
 
 const SUB_FIELDS_FRAGMENT = `
 fragment SubFields on Sub {
@@ -155,51 +155,16 @@ const QUERY_SUB_SEARCH = `
     }
   }`;
 
-const getCookie = async () => {
-  return fs.promises.readFile(path.join(__dirname, ".session-cookie"), "utf-8");
-};
-
-const writeCookie = async (content: string) => {
-  if (!content) {
-    console.log("attempted to write empty cookie. skipping");
-    return;
-  }
-  console.log("storing new session cookie...", content);
-  return fs.promises.writeFile(
-    path.join(__dirname, ".session-cookie"),
-    content,
-    "utf-8"
-  );
-};
-
-const extractCookieFromResponse = async (response: Response) => {
-  const setCookieHeader = response.headers.getSetCookie();
-  const singleCookie = setCookieHeader.find((header) =>
-    header.startsWith(SESSION_TOKEN_COOKIE_NAME)
-  );
-  if (singleCookie) {
-    const setCookie = singleCookie.split(";")[0].split("=")[1];
-    if (setCookie) {
-      await writeCookie(setCookie);
-    } else {
-      console.log("failed to parse session cookie");
-    }
-  } else {
-    console.log("no session set cookie");
-  }
-};
-
 const authedApiCall = async <ResponseType>({ body }: { body: string }) => {
-  const cookie = await getCookie();
+  const apiKey = process.env.SN_API_KEY;
   const response = await fetch("https://stacker.news/api/graphql/", {
     method: "POST",
     headers: {
       "content-type": "application/json",
-      Cookie: `${SESSION_TOKEN_COOKIE_NAME}=${cookie}`,
-    },
+      [API_KEY_HEADER_NAME]: apiKey,
+    } as HeadersInit,
     body,
   });
-  extractCookieFromResponse(response);
   return response.json() as ResponseType;
 };
 

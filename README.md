@@ -6,11 +6,11 @@ The BraiinsPool and stacker.news libraries here _could_, in theory, serve as the
 
 ## Setup
 
-1. Create a `.env` file (`gitignored`) in the root of the repo with the following key:
+1. Create a `.env` file (`gitignored`) in the root of the repo with the following entries:
 
-   `BRAIINS_TOKEN` - this is the API token from BraiinsPool used to access their API. You can get this from your Braiins account. You cannot make API calls to Braiins without it.
+   `BRAIINS_TOKEN` - this is the API token from BraiinsPool used to access their API. You can get this from your Braiins account.
 
-2. Create a file called `.session-cookie` (also `gitignored`) in the root of the repo, containing a valid session cookie from stacker.news. This serves as your API key/token. The code also replaces this file with a refreshed version to help remain operational over time. You cannot make API calls to stacker.news without it.
+   `SN_API_KEY` - this is the API Key from Stacker News used to access their API. You must request this feature to be enabled on your account before generating a key.
 
 ## Contributing
 

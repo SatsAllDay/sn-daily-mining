@@ -4,7 +4,7 @@
   "description": "",
   "main": "daily-mining.js",
   "scripts": {
-    "build": "tsc && cp .session-cookie dist/.session-cookie",
+    "build": "tsc",
     "start": "node dist/index"
   },
   "author": "",
