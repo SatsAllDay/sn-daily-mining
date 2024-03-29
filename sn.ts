@@ -277,7 +277,7 @@ export const search = async ({
     const body = JSON.stringify({
       operationName: "SubSearch",
       variables: {
-        q: nym ? `nym:${nym}` : "",
+        q: nym ? `@${nym}` : "",
         what,
         sort: "recent",
         cursor,
