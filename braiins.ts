@@ -22,5 +22,5 @@ export const getMostRecentMiningSats = async () => {
   dailyRewards.sort((o1, o2) => o2.date - o1.date);
   const mostRecent = dailyRewards[0];
   const minedSats = Number(mostRecent.mining_reward) * 100000000; // expressed in BTC units, so scale it to sats
-  return minedSats;
+  return Math.floor(minedSats);
 };
